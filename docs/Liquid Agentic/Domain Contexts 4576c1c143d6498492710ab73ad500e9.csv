@@ -1,0 +1,12 @@
+﻿Context,Category,Type,Consumers,Dependencies,ID,Status
+Identity & Permissions,Domain,Generic,"D2, D4, D5, D6, D7, D8, E2, E3, E4",—,D1,Review
+Billing & Monetization,Domain,Generic,"D4, D5, D9, E1, E2, E3",D1,D2,Review
+Localization,Domain,Generic,"D4, D5, D8, E1, E3",—,D3,Review
+Connectors,Domain,Supporting,"D5, D6, D7, D8, D9, E2, E3, E4","D1, D2, D3",D4,Review
+Skills,Domain,Supporting,"D6, D9, E2, E4","D1, D2, D4",D5,Review
+Agents (Taxonomy),Domain,Supporting,"D9, E2, E4","D4, D5",D6,Review
+Knowledge Base,Domain,Supporting,"D5, D6, D8, E2, E4","D1, D4",D7,Review
+Entities,Domain,Supporting,"D5, D6, D9, E2","D4, D7",D8,Review
+Liquidity,Domain,Operating,"E1, E2","D4, D5, D6, D8",D9,Review
+Platform Operations,Domain,Operating,—,"D4, D5, D9",D10,Review
+Landing (Open Layer),Experience,Open Layer,"E2, E3, E4","D1, D2, D3, D6, D9",E1,Drafting

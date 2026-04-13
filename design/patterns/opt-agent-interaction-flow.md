@@ -1,0 +1,34 @@
+---
+layer: interaction
+question: How do agents compose responses, display working states, and request human approvals?
+---
+
+# 4.4 - Agent Interaction Flow
+
+## 1. Agent Running States
+The UI must precisely reflect agent status. Silence is forbidden.
+*   `idle` -> `thinking` (typing indicator) -> `planning` ("Analyzing...") -> `executing_tool` (spinner + "Consulting [API]") -> `streaming` -> `done`.
+*   **Cost Transparency:** If an action > 5 working units, a pre-execution cost estimate MUST be displayed. Actions > 20 units trigger an Approval Card. The exact consumed cost is always written to the Audit Trail.
+
+## 2. Artifact Composition Logic
+*   **Single-Context Rule:** One response answers ONE analytical question. Do not aggregate unrelated data.
+*   **Selection Tree:**
+    *   Single metric → `ArtifactKPI`
+    *   Trend / comparison → `ArtifactChart` (MANDATORY: must include interpretation text).
+    *   Raw records → `ArtifactDatatable` 
+    *   Structured report → `ArtifactDocument`
+*   **Credit Context Anti-Pattern:** NEVER use `ArtifactChart` for a point-in-time individual credit analysis response, it distracts from the narrative judgment.
+
+## 3. Human-in-the-Loop (ApprovalCard)
+When a policy halts execution, the agent MUST emit a blocked ApprovalCard. It blocks the user's chat input area completely until resolved.
+**Card Structure:**
+*   **Context:** 2-3 sentences summarizing the situation.
+*   **Action Requested:** Explicit action ("Submit operation X to Bank Y").
+*   **Consequence:** Explicitly state what happens if Approved AND what happens if Rejected.
+*   **Data:** Max 5 decision-relevant fields.
+*   **Actions:** [Approve] [Reject] [Request Info]. 
+
+## 4. Orbital Agent
+Outbound execution via WhatsApp.
+*   Displayed inline as an `OrbitalThread`.
+*   **Rule:** Internal users can READ the transcript, but CANNOT inject messages. Any intervention requires pausing the Orbital Agent via UI (triggers an Approval). Timeout events require explicit human instructions to retry.
